@@ -17,3 +17,5 @@ Algorithm
 > ![step04](https://cloud.githubusercontent.com/assets/10435547/9659933/07a150bc-528e-11e5-8cfb-8a620174d514.png)
 
 ---
+
+문항들은 Problems 디렉토리 내부에 등록하겠습니다.
