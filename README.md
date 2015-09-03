@@ -1,2 +1,4 @@
-# Algorithm
-알고리즘
+Algorithm
+=========
+
+Algorithm Study Group in SKuniv
