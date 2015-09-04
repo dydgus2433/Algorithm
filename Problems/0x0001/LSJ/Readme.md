@@ -8,13 +8,13 @@
 ```cpp
 int fibonacci(int n) {
   if (n==0) {
-    ~~printf("0");~~
-    **Call[0];**
+    //printf("0");
+    Call[0];
     return 0;
   }
   else if (n==1) {
-    ~~printf("1");~~
-    **Call[1];**
+    //printf("1");
+    Call[1];
     return 1;
   }
   else {
