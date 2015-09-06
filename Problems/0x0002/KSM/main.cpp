@@ -1,5 +1,4 @@
 #include<iostream>
-#include<assert.h>
 #include"Ground.h"
 #include"Bug.h"
 
