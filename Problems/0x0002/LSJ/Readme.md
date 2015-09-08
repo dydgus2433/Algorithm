@@ -44,8 +44,6 @@ for (int i = 0; i < X; i++) {
 ---
 ```cpp
 #include <iostream>
-#include <ctime>	// 시간을 이용하여 시드 배정을 하기 위해 추가
-#include <cstdlib>	// rand() 사용을 위해 추가
 #define NotFound -1	// 빈 땅임을 의미할 때.
 #define Kimchi 10000// 김치(...) 배추가 이 땅에 있다는 의미의 임의의 값
 using namespace std;
@@ -53,8 +51,6 @@ using namespace std;
 int main() {
 	int X, Y, B;	// X는 가로, Y는 세로, B는 배추의 B.
 	int x, y;	// 좌표를 가리킬 때 사용할 변수 (x,y)
-
-	srand((unsigned int)time(NULL));	// 시드 배정
 
 	int how_many;
 	cin >> how_many;
@@ -79,24 +75,21 @@ int main() {
 		}
 
 		int c = 0;	// 심은 배추의 갯수를 세기 위해 사용할 변수.
-		// 배추의 개수만큼, (x,y) 좌표를 뽑아내어 심는다.
+					// 배추의 개수만큼, (x,y) 좌표를 뽑아내어 심는다.
 		while (c < B) {
-			//x = rand() % X;
-			//y = rand() % Y;
-			cin >> x >> y;	// repair1에서 수정된 부분. 입력받은 위치에 배추를 심는 것으로 수정
+			cin >> x >> y;
 			if (field[x][y] == NotFound) {	// (x,y)가 빈 땅이라면 (배추를 심지 않은 곳이라면)
 				field[x][y] = Kimchi;	// 배추를 심고
 				c++;	// 심은 갯수(변수 c)를 올려요.
-				//cout << x << ' ' << y << endl;	// 출력
 			}
 		}
 
 		/****** 배추의 위치 파악 및 벌레 투입 ******/
-		int bread = 1;	// 빵. 돌아올 길에 뿌려둘 변수(...)
 		int worm = 0;	// 지렁이의 갯수.
-
+		bool flag = false;
 		for (int i = 0; i < X; i++) {
 			for (int j = 0; j < Y; j++) {
+				flag = false;
 				if (field[i][j] >= Kimchi) {
 					// 배추를 찾았을 경우
 					worm++;	// 우선 벌레 갯수를 1개 증가
@@ -107,7 +100,8 @@ int main() {
 						// 더 먼저 벌레를 넣은 쪽이 움직일 수 있는 곳임. 고로 넣은 벌레를 다시 빼줌
 						if (field[i][j] > field[i - 1][j]) {
 							field[i][j] = field[i - 1][j];
-							worm--;
+							if (!flag)
+								worm--;
 						}
 
 						else {
@@ -120,7 +114,8 @@ int main() {
 						// 더 먼저 벌레를 넣은 쪽이 움직일 수 있는 곳임. 고로 넣은 벌레를 다시 빼줌
 						if (field[i][j] > field[i + 1][j]) {
 							field[i][j] = field[i + 1][j];
-							worm--;
+							if (!flag)
+								worm--;
 						}
 
 						else {
@@ -133,7 +128,8 @@ int main() {
 						// 더 먼저 벌레를 넣은 쪽이 움직일 수 있는 곳임. 고로 넣은 벌레를 다시 빼줌
 						if (field[i][j] > field[i][j - 1]) {
 							field[i][j] = field[i][j - 1];
-							worm--;
+							if (!flag)
+								worm--;
 						}
 
 						else {
@@ -146,7 +142,8 @@ int main() {
 						// 더 먼저 벌레를 넣은 쪽이 움직일 수 있는 곳임. 고로 넣은 벌레를 다시 빼줌
 						if (field[i][j] > field[i][j + 1]) {
 							field[i][j] = field[i][j + 1];
-							worm--;
+							if (!flag)
+								worm--;
 						}
 
 						else {
@@ -171,7 +168,7 @@ int main() {
 		cout << final_worm << endl;	// 최종 벌레 수를 출력
 
 
-		// 동적으로 할당한 2차원 배열(밭)을 반환. 삭제는 생성의 역순으로.
+									// 동적으로 할당한 2차원 배열(밭)을 반환. 삭제는 생성의 역순으로.
 		for (int i = 0; i < X; i++) {
 			delete[] field[i];
 		}
