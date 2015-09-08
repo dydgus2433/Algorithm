@@ -41,9 +41,10 @@ int main() {
 
 		/****** 배추의 위치 파악 및 벌레 투입 ******/
 		int worm = 0;	// 지렁이의 갯수.
-
+		bool flag = false;
 		for (int i = 0; i < X; i++) {
 			for (int j = 0; j < Y; j++) {
+				flag = false;
 				if (field[i][j] >= Kimchi) {
 					// 배추를 찾았을 경우
 					worm++;	// 우선 벌레 갯수를 1개 증가
@@ -54,7 +55,8 @@ int main() {
 						// 더 먼저 벌레를 넣은 쪽이 움직일 수 있는 곳임. 고로 넣은 벌레를 다시 빼줌
 						if (field[i][j] > field[i - 1][j]) {
 							field[i][j] = field[i - 1][j];
-							worm--;
+							if (!flag)
+								worm--;
 						}
 
 						else {
@@ -67,7 +69,8 @@ int main() {
 						// 더 먼저 벌레를 넣은 쪽이 움직일 수 있는 곳임. 고로 넣은 벌레를 다시 빼줌
 						if (field[i][j] > field[i + 1][j]) {
 							field[i][j] = field[i + 1][j];
-							worm--;
+							if (!flag)
+								worm--;
 						}
 
 						else {
@@ -80,7 +83,8 @@ int main() {
 						// 더 먼저 벌레를 넣은 쪽이 움직일 수 있는 곳임. 고로 넣은 벌레를 다시 빼줌
 						if (field[i][j] > field[i][j - 1]) {
 							field[i][j] = field[i][j - 1];
-							worm--;
+							if (!flag)
+								worm--;
 						}
 
 						else {
@@ -93,7 +97,8 @@ int main() {
 						// 더 먼저 벌레를 넣은 쪽이 움직일 수 있는 곳임. 고로 넣은 벌레를 다시 빼줌
 						if (field[i][j] > field[i][j + 1]) {
 							field[i][j] = field[i][j + 1];
-							worm--;
+							if (!flag)
+								worm--;
 						}
 
 						else {
